@@ -1,131 +1,268 @@
-.app {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
+:root {
+  --bg: #080808;
+  --surface: #0f0f0f;
+  --surface-2: #141414;
+  --neon-green: #00ff87;
+  --neon-pink: #ff0080;
+  --neon-cyan: #00d4ff;
+  --neon-yellow: #ffe600;
+  --muted: #444;
+  --text-dim: #888;
+  --glow-green: 0 0 8px #00ff87, 0 0 24px #00ff8750;
+  --glow-pink: 0 0 8px #ff0080, 0 0 24px #ff008050;
+  --glow-cyan: 0 0 8px #00d4ff, 0 0 24px #00d4ff50;
+  --glow-yellow: 0 0 8px #ffe600, 0 0 24px #ffe60050;
 }
 
+/* ── Layout ─────────────────────────────── */
+
+.app {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 40px 20px 60px;
+  background: var(--bg);
+  min-height: 100vh;
+}
+
+/* ── Header ─────────────────────────────── */
+
 h1 {
-  margin-bottom: 4px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 80px;
+  letter-spacing: 6px;
+  color: var(--neon-green);
+  text-shadow: var(--glow-green);
+  line-height: 1;
+  margin-bottom: 0;
 }
 
 .subtitle {
-  margin-bottom: 20px;
-  color: #666;
+  font-size: 10px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 48px;
+  padding-left: 6px;
+  border-left: 3px solid var(--neon-green);
+  margin-top: 6px;
 }
 
+/* ── Section Label Pattern ──────────────── */
+/* Used by .spending-chart, .add-transaction, .transactions */
+
+.spending-chart,
+.add-transaction,
+.transactions {
+  position: relative;
+  margin-bottom: 32px;
+  background: var(--surface);
+}
+
+.spending-chart::before,
+.add-transaction::before,
+.transactions::before {
+  position: absolute;
+  top: 0;
+  left: 16px;
+  background: var(--bg);
+  padding: 0 8px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  transform: translateY(-50%);
+}
+
+/* ── Summary Cards ───────────────────────── */
+
 .summary {
-  display: flex;
-  gap: 12px;
-  margin-bottom: 24px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  margin-bottom: 32px;
+  border: 2px solid var(--neon-cyan);
+  box-shadow: var(--glow-cyan);
 }
 
 .summary-card {
-  flex: 1;
-  border: 1px solid #ddd;
-  padding: 14px;
-  background: #fff;
+  padding: 20px 24px;
+  background: var(--surface);
+  border-right: 2px solid var(--neon-cyan);
+}
+
+.summary-card:last-child {
+  border-right: none;
 }
 
 .summary-card h3 {
-  font-size: 13px;
-  color: #888;
-  margin-bottom: 4px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 10px;
 }
 
 .income-amount {
-  color: green;
-  font-size: 20px;
-  font-weight: bold;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 44px;
+  letter-spacing: 2px;
+  color: var(--neon-cyan);
+  text-shadow: var(--glow-cyan);
+  line-height: 1;
 }
 
 .expense-amount {
-  color: red;
-  font-size: 20px;
-  font-weight: bold;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 44px;
+  letter-spacing: 2px;
+  color: var(--neon-pink);
+  text-shadow: var(--glow-pink);
+  line-height: 1;
 }
 
 .balance-amount {
-  font-size: 20px;
-  font-weight: bold;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 44px;
+  letter-spacing: 2px;
+  color: var(--neon-yellow);
+  text-shadow: var(--glow-yellow);
+  line-height: 1;
 }
 
+/* ── Spending Chart ──────────────────────── */
+
 .spending-chart {
-  border: 1px solid #ddd;
-  padding: 16px;
-  margin-bottom: 24px;
-  background: #fff;
+  border: 2px solid var(--neon-green);
+  box-shadow: var(--glow-green);
+  padding: 28px 20px 20px;
+}
+
+.spending-chart::before {
+  content: '// spending analysis';
+  color: var(--neon-green);
 }
 
 .spending-chart h2 {
-  font-size: 16px;
-  margin-bottom: 12px;
+  display: none;
 }
 
+/* ── Add Transaction Form ────────────────── */
+
 .add-transaction {
-  border: 1px solid #ddd;
-  padding: 16px;
-  margin-bottom: 24px;
-  background: #fff;
+  border: 2px solid var(--neon-yellow);
+  box-shadow: var(--glow-yellow);
+  padding: 28px 20px 20px;
+}
+
+.add-transaction::before {
+  content: '// new transaction';
+  color: var(--neon-yellow);
 }
 
 .add-transaction h2 {
-  font-size: 16px;
-  margin-bottom: 12px;
+  display: none;
 }
 
 form {
   display: flex;
-  gap: 8px;
+  gap: 6px;
   flex-wrap: wrap;
 }
 
 form input,
 form select {
-  padding: 8px;
-  border: 1px solid #ccc;
-  font-size: 14px;
+  padding: 10px 12px;
+  border: 2px solid var(--muted);
+  background: var(--surface-2);
+  color: #fff;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  outline: none;
+  transition: border-color 0.1s, box-shadow 0.1s;
 }
 
-form input[type="text"] {
-  flex: 2;
+form input::placeholder {
+  color: #444;
+  text-transform: uppercase;
+  font-size: 10px;
+  letter-spacing: 2px;
 }
 
-form input[type="number"] {
-  flex: 1;
+form input:focus,
+form select:focus {
+  border-color: var(--neon-yellow);
+  box-shadow: var(--glow-yellow);
 }
 
-form select {
-  flex: 1;
-}
+form input[type="text"] { flex: 2; min-width: 140px; }
+form input[type="number"] { flex: 1; min-width: 80px; }
+form select { flex: 1; min-width: 100px; }
 
 form button {
-  padding: 8px 20px;
-  background: #333;
-  color: #fff;
+  padding: 10px 28px;
+  background: var(--neon-yellow);
+  color: #000;
   border: none;
   cursor: pointer;
-  font-size: 14px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 20px;
+  letter-spacing: 3px;
+  transition: background 0.1s, box-shadow 0.1s;
+  white-space: nowrap;
 }
 
+form button:hover {
+  background: #fff;
+  box-shadow: var(--glow-yellow);
+}
+
+/* ── Transaction List ────────────────────── */
+
 .transactions {
-  margin-bottom: 24px;
+  border: 2px solid var(--neon-pink);
+  box-shadow: var(--glow-pink);
+  padding-top: 12px;
+}
+
+.transactions::before {
+  content: '// transaction log';
+  color: var(--neon-pink);
 }
 
 .transactions h2 {
-  font-size: 16px;
-  margin-bottom: 12px;
+  display: none;
 }
 
 .filters {
   display: flex;
-  gap: 8px;
-  margin-bottom: 12px;
+  gap: 0;
+  padding: 8px 16px 16px;
 }
 
 .filters select {
-  padding: 6px;
-  border: 1px solid #ccc;
-  font-size: 13px;
+  padding: 7px 12px;
+  border: 2px solid var(--muted);
+  border-right: none;
+  background: var(--surface-2);
+  color: var(--text-dim);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 1px;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.1s, color 0.1s;
+}
+
+.filters select:last-child {
+  border-right: 2px solid var(--muted);
+}
+
+.filters select:focus {
+  border-color: var(--neon-pink);
+  color: var(--neon-pink);
+  box-shadow: inset 0 0 8px #ff008020;
+  z-index: 1;
 }
 
 table {
@@ -134,27 +271,56 @@ table {
 }
 
 thead {
-  background: #f5f5f5;
-}
-
-th, td {
-  padding: 10px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
-  font-size: 14px;
+  background: #0a0a0a;
 }
 
 th {
-  font-size: 12px;
-  color: #888;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 3px;
   text-transform: uppercase;
+  color: var(--text-dim);
+  padding: 10px 16px;
+  text-align: left;
+  border-bottom: 1px solid #1c1c1c;
+  font-weight: 400;
+}
+
+td {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  padding: 11px 16px;
+  border-bottom: 1px solid #111;
+  color: #bbb;
+}
+
+tbody tr:hover td {
+  background: #121212;
+  color: #fff;
+}
+
+/* Override Bebas sizes in table cells */
+td .income-amount,
+td .expense-amount {
+  font-size: 14px;
+  letter-spacing: 1px;
 }
 
 .delete-btn {
   padding: 4px 10px;
-  background: #eee;
-  border: 1px solid #ccc;
+  background: transparent;
+  border: 1px solid var(--neon-pink);
+  color: var(--neon-pink);
   cursor: pointer;
-  font-size: 12px;
-  color: #333;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  transition: background 0.1s, color 0.1s, box-shadow 0.1s;
+}
+
+.delete-btn:hover {
+  background: var(--neon-pink);
+  color: #000;
+  box-shadow: var(--glow-pink);
 }

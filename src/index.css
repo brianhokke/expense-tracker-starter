@@ -5,7 +5,29 @@
 }
 
 body {
-  font-family: Arial, sans-serif;
-  background-color: #ffffff;
-  color: #333;
+  font-family: 'IBM Plex Mono', monospace;
+  background-color: #080808;
+  color: #ffffff;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: #080808;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #00ff87;
+}
+
+select {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+option {
+  background: #111;
+  color: #fff;
 }
