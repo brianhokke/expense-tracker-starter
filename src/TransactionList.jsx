@@ -1,6 +1,5 @@
 import { useState } from 'react'
-
-const categories = ["food", "housing", "utilities", "transport", "entertainment", "salary", "other"];
+import { CATEGORIES, formatCurrency } from './constants'
 
 function TransactionList({ transactions, onDelete }) {
   const [filterType, setFilterType] = useState("all");
@@ -25,7 +24,7 @@ function TransactionList({ transactions, onDelete }) {
         </select>
         <select value={filterCategory} onChange={(e) => setFilterCategory(e.target.value)}>
           <option value="all">All Categories</option>
-          {categories.map(cat => (
+          {CATEGORIES.map(cat => (
             <option key={cat} value={cat}>{cat}</option>
           ))}
         </select>
@@ -42,26 +41,34 @@ function TransactionList({ transactions, onDelete }) {
           </tr>
         </thead>
         <tbody>
-          {filtered.map(t => (
-            <tr key={t.id}>
-              <td>{t.date}</td>
-              <td>{t.description}</td>
-              <td>{t.category}</td>
-              <td className={t.type === "income" ? "income-amount" : "expense-amount"}>
-                {t.type === "income" ? "+" : "-"}${t.amount}
-              </td>
-              <td>
-                <button
-                  className="delete-btn"
-                  onClick={() => {
-                    if (window.confirm('Delete this transaction?')) onDelete(t.id);
-                  }}
-                >
-                  Delete
-                </button>
+          {filtered.length === 0 ? (
+            <tr>
+              <td colSpan={5} style={{ textAlign: 'center', color: '#555' }}>
+                No transactions match the selected filters.
               </td>
             </tr>
-          ))}
+          ) : (
+            filtered.map(t => (
+              <tr key={t.id}>
+                <td>{t.date}</td>
+                <td>{t.description}</td>
+                <td>{t.category}</td>
+                <td className={t.type === "income" ? "income-amount" : "expense-amount"}>
+                  {t.type === "income" ? "+" : "-"}{formatCurrency(t.amount)}
+                </td>
+                <td>
+                  <button
+                    className="delete-btn"
+                    onClick={() => {
+                      if (window.confirm('Delete this transaction?')) onDelete(t.id);
+                    }}
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))
+          )}
         </tbody>
       </table>
     </div>
